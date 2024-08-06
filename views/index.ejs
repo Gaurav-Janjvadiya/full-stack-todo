@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <%#= id%>
-    hii
-  </body>
-</html>
+<%- include("./layouts/boilerplate.ejs") %>
+
+<body>
+  <div class="container p-4">
+    <div class="row">
+      <div class="col">
+        <div class="list-group">
+          <% todos.forEach(todo => { %>
+          <div class="list-group-item list-group-item-action"><%= todo.todo %></div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
