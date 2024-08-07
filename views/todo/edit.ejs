@@ -1,0 +1,24 @@
+<%- include("../layouts/boilerplate.ejs") %>
+<body>
+  <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+    <div class="row w-100">
+      <div class="col-12 col-md-6 offset-md-3">
+        <h3 class="text-center">Edit your task</h3>
+        <form
+          action="/todo/<%= todo._id %>/update?_method=PUT"
+          class="mb-2"
+          method="post"
+        >
+          <input
+            type="text"
+            value="<%= todo.todo %>"
+            placeholder="Add todo"
+            name="todo"
+            class="form-control mb-2"
+          />
+          <button type="submit" class="btn btn-dark w-100">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
