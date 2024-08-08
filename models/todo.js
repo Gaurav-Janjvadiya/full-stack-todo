@@ -9,9 +9,10 @@ const todoSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  // owner: {
-  //   type: mongoose.Schema.ObjectId,
-  // },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+  },
 });
 
 const Todo = new mongoose.model("Todo", todoSchema);

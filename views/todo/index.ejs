@@ -17,7 +17,7 @@
             </div>
             <div class="btn-group">
               <form
-                action="/todo/<%=todo._id%>/completed?_method=PATCH"
+                action="/todos/<%=todo._id%>/completed?_method=PATCH"
                 method="post"
                 class="d-inline"
               >
@@ -29,7 +29,7 @@
                 </button>
               </form>
               <form
-                action="/todo/<%=todo._id%>/edit?"
+                action="/todos/<%=todo._id%>/edit?"
                 method="get"
                 class="d-inline"
               >
@@ -41,7 +41,7 @@
                 </button>
               </form>
               <form
-                action="/todo/<%=todo._id%>/delete?_method=DELETE"
+                action="/todos/<%=todo._id%>/delete?_method=DELETE"
                 method="post"
                 class="d-inline"
               >
