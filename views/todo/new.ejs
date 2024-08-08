@@ -1,4 +1,4 @@
-<%- include("../layouts/boilerplate.ejs") %>
+<%- layout("/layouts/boilerplate.ejs") %>
 <body>
   <div
     class="container d-flex pt-5 flex-column justify-content-center align-items-center min-vh-100"
@@ -6,16 +6,52 @@
     <div class="row w-100">
       <div class="col-12 col-md-6 offset-md-3">
         <h3 class="text-center">Create task</h3>
-        <form action="/todo" class="mb-2" method="post">
-          <input
-            type="text"
-            placeholder="todo"
-            class="form-control mb-2"
-            name="todo"
-          />
+        <form
+          action="/todo"
+          class="mb-2 needs-validation"
+          novalidate
+          method="post"
+        >
+          <div class="mb-2">
+            <input
+              type="text"
+              placeholder="Todo"
+              class="form-control mb-2"
+              name="todo"
+              required
+            />
+            <div class="invalid-feedback">Todo is required!</div>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
           <button type="submit" class="btn btn-dark w-100">Add</button>
         </form>
       </div>
     </div>
   </div>
 </body>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (() => {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll(".needs-validation");
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach((form) => {
+      form.addEventListener(
+        "submit",
+        (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>

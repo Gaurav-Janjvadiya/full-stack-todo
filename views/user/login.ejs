@@ -1,4 +1,4 @@
-<%- include("../layouts/boilerplate.ejs") %>
+<%- layout("/layouts/boilerplate.ejs") %>
 
 <body>
   <div class="container">
@@ -7,7 +7,12 @@
         <div class="card my-5">
           <div class="card-body">
             <h3 class="text-center mb-4">Login</h3>
-            <form action="/login" method="post">
+            <form
+              action="/login"
+              novalidate
+              class="needs-validation"
+              method="post"
+            >
               <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input
@@ -18,6 +23,8 @@
                   placeholder="Username"
                   required
                 />
+                <div class="invalid-feedback">Username is required!</div>
+                <div class="valid-feedback">Looks good!</div>
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -29,6 +36,8 @@
                   placeholder="Password"
                   required
                 />
+                <div class="invalid-feedback">Password is required!</div>
+                <div class="valid-feedback">Looks good!</div>
               </div>
               <button type="submit" class="btn btn-primary w-100">
                 Submit

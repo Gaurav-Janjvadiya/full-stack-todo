@@ -20,9 +20,11 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <link rel="stylesheet" href="index.css" />
+    <script src="helper.js" defer></script>
     <title>Todo</title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
+    <div class="p-4"><%- include("../layouts/flash.ejs") %> <%- body %></div>
   </body>
 </html>
