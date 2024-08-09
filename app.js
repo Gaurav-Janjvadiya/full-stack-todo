@@ -12,6 +12,7 @@ const engine = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const todoRouter = require("./routes/todo");
 const userRouter = require("./routes/user");
+const MongoStore = require("connect-mongo");
 
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
@@ -32,18 +33,30 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Middleware setup
-app.use(
-  session({
-    secret: "secretString",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-    },
-  })
-);
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: secretString,
+  },
+  touchAfter: 3600 * 24,
+});
+
+store.on("error",(err) => {
+  console.log("Error in MONGO SESSION STORE",err)
+})
+
+const sessionOptions = {
+  store,
+  secret: "secretString",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+app.use(session(sessionOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
