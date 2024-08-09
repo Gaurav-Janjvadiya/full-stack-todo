@@ -1,22 +1,43 @@
 const express = require("express");
 const router = express.Router();
-const Todo = require("../models/todo");
 const wrapAsync = require("../utils/wrapAsync");
 const todoController = require("../controllers/todos");
+const { isOwner, isLoggedIn, validateTodo } = require("../middleware");
 
 // Todo routes
-router.get("/", wrapAsync(todoController.renderTodos));
+router.get("/", isLoggedIn, wrapAsync(todoController.renderTodos));
 
-router.get("/new", todoController.renderNewForm);
+router.get("/new", isLoggedIn, todoController.renderNewForm);
 
-router.post("/", wrapAsync(todoController.createTodo));
+router.post("/", validateTodo, wrapAsync(todoController.createTodo));
 
-router.patch("/:id/completed", wrapAsync(todoController.completeTodo));
+router.patch(
+  "/:id/completed",
+  isLoggedIn,
+  isOwner,
+  wrapAsync(todoController.completeTodo)
+);
 
-router.delete("/:id/delete", wrapAsync(todoController.destroyTodo));
+router.delete(
+  "/:id/delete",
+  isLoggedIn,
+  isOwner,
+  wrapAsync(todoController.destroyTodo)
+);
 
-router.get("/:id/edit", wrapAsync(todoController.renderEditForm));
+router.get(
+  "/:id/edit",
+  isLoggedIn,
+  isOwner,
+  wrapAsync(todoController.renderEditForm)
+);
 
-router.put("/:id/update", wrapAsync(todoController.updateTodo));
+router.put(
+  "/:id/update",
+  isLoggedIn,
+  isOwner,
+  validateTodo,
+  wrapAsync(todoController.updateTodo)
+);
 
 module.exports = router;

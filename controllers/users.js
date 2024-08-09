@@ -5,8 +5,11 @@ module.exports.renderSignUpForm = (req, res) => {
 };
 
 module.exports.signUp = async (req, res, next) => {
-  let user = new User({ username: req.body.username, email: req.body.email });
-  await User.register(user, req.body.password);
+  const { username, email, password } = req.body;
+  console.log(req.body);
+  let user = new User({ username, email });
+  await User.register(user, password);
+  req.flash("success", "You are logged in!");
   res.redirect("/todos");
 };
 

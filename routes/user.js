@@ -1,6 +1,5 @@
 const express = require("express");
 const wrapAsync = require("../utils/wrapAsync");
-const User = require("../models/user");
 const router = express.Router();
 const passport = require("passport");
 const userController = require("../controllers/users");

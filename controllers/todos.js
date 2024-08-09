@@ -12,6 +12,7 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createTodo = async (req, res) => {
+  console.log(req.body);
   const todo = new Todo({ ...req.body, user: res.locals.user._id });
   await todo.save();
   req.flash("success", "Todo created!");
