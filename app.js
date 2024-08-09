@@ -12,12 +12,21 @@ const engine = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const todoRouter = require("./routes/todo");
 const userRouter = require("./routes/user");
+
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
+
+const dbUrl = process.env.ALTASDB_URL;
+// const dbUrl = "mongodb://127.0.0.1:27017/mytodo";
 // Connect to MongoDB
-mongoose
-  .connect("mongodb://127.0.0.1:27017/mytodo")
-  .then(() => console.log("DB connected"))
+main()
+  .then(() => console.log("DB Connected"))
   .catch((e) => console.log(e));
 
+async function main() {
+  await mongoose.connect(dbUrl);
+}
 // Set view engine and views directory
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -66,7 +75,7 @@ app.all("*", (req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.log(err)
+  console.log(err);
   let { status = 400, message = "something went wrong" } = err;
   res.status(status).render("error.ejs", { message });
 });
