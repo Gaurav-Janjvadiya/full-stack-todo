@@ -36,7 +36,7 @@ app.set("views", path.join(__dirname, "views"));
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
-    secret: secretString,
+    secret: "secretString",
   },
   touchAfter: 3600 * 24,
 });
