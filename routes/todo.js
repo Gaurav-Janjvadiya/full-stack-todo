@@ -19,7 +19,7 @@ router.patch(
 );
 
 router.delete(
-  "/:id/delete",
+  "/:id",
   isLoggedIn,
   isOwner,
   wrapAsync(todoController.destroyTodo)
@@ -33,7 +33,7 @@ router.get(
 );
 
 router.put(
-  "/:id/update",
+  "/:id",
   isLoggedIn,
   isOwner,
   validateTodo,

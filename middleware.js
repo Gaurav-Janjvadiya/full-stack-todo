@@ -3,11 +3,12 @@ const { todoSchema,userSchema } = require("./schema");
 
 module.exports.isOwner = async (req, res, next) => {
   const { id } = req.params;
-  const todo = Todo.findById(id);
-  if (!todo.user.equals(res.locals.user._id)) {
-    req.flash("error", "You don't have permission");
+  const todo = await Todo.findById(id);
+  if (!todo.user._id.equals(res.locals.user && res.locals.user._id)) {
+    req.flash("error", "You don't have permission for that");
     return res.redirect("/todos");
   }
+  next();
 };
 
 module.exports.isLoggedIn = (req, res, next) => {
