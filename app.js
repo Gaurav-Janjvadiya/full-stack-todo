@@ -79,6 +79,11 @@ app.use((req, res, next) => {
 });
 
 // Routes
+app.get("/", (req, res) => {
+  req.flash("error", "please login or signup first");
+  res.redirect("/login");
+});
+
 app.use("/todos", todoRouter);
 app.use("/", userRouter);
 
